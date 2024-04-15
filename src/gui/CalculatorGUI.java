@@ -1,15 +1,15 @@
 package gui;
 
 import javax.swing.*;
+import javax.swing.JFrame;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import operation.AdditionOperation;
-import operation.SubtractionOperation;
-import operation.MultiplicationOperation;
-import operation.DivisionOperation;
-import operation.ExponentiationOperation;
-import operation.SquareRootOperation;
+import java.util.function.DoubleUnaryOperator;
+
+import functions.ExpressionParser;
+import functions.Graph;
+import operation.*;
 
 public class CalculatorGUI extends JFrame implements ActionListener {
 
@@ -72,6 +72,10 @@ public class CalculatorGUI extends JFrame implements ActionListener {
         buttonPanel.add(clearButton);
 
         add(buttonPanel, BorderLayout.CENTER);
+
+        JButton graphButton = new JButton("Graph");
+        graphButton.addActionListener(e -> openGraphWindow());
+        buttonPanel.add(graphButton);
 
         setVisible(true);
     }
@@ -148,6 +152,22 @@ public class CalculatorGUI extends JFrame implements ActionListener {
         num2 = 0;
         operation = ' ';
         isOperationPerformed = false;
+    }
+
+    private void openGraphWindow() {
+        JFrame graphWindow = new JFrame("Graph");
+        graphWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        graphWindow.setSize(600, 600);
+
+        DoubleUnaryOperator function = ExpressionParser.parseFunction(inputField.getText());
+        double minX = -10;
+        double maxX = 10;
+        double minY = -100;
+        double maxY = 100;
+        int pixelsPerUnit = 50;
+
+        graphWindow.add(new Graph(function, minX, maxX, minY, maxY, pixelsPerUnit), BorderLayout.CENTER);
+        graphWindow.setVisible(true);
     }
 
     public static void main(String[] args) {
