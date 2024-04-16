@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d6e1b768-df78-401b-b776-78ad47e4135e" name="Changes" comment="Cosinus-Funktion hinzugefügt">
-      <change afterPath="$PROJECT_DIR$/src/operation/TangensOperation.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="d6e1b768-df78-401b-b776-78ad47e4135e" name="Changes" comment="Tangens-Funktion hinzugefügt">
+      <change afterPath="$PROJECT_DIR$/src/operation/LogarithmOperation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/CalculatorGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/CalculatorGUI.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +86,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713288345100</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Tangens-Funktion hinzugefügt">
+      <option name="closed" value="true" />
+      <created>1713291021954</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1713291021954</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -131,6 +139,7 @@
     <MESSAGE value="Modulo Funktion hinzugefügt&#10;Sinus funktion hinzugefügt" />
     <MESSAGE value="Modulo Funktion hinzugefügt&#10;Sinus funktion hinzugefügt&#10;&#10;(cherry picked from commit 2ec9dde527cdc3ca4442ba083dcc39e08b0a668e)" />
     <MESSAGE value="Cosinus-Funktion hinzugefügt" />
-    <option name="LAST_COMMIT_MESSAGE" value="Cosinus-Funktion hinzugefügt" />
+    <MESSAGE value="Tangens-Funktion hinzugefügt" />
+    <option name="LAST_COMMIT_MESSAGE" value="Tangens-Funktion hinzugefügt" />
   </component>
 </project>
