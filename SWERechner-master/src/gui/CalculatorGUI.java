@@ -32,6 +32,7 @@ public class CalculatorGUI extends JFrame implements ActionListener {
     private ModuloOperation moduloOperation = new ModuloOperation();
     private SinusOperation sinusOperation = new SinusOperation();
     private CosinusOperation cosinusOperation = new CosinusOperation();
+    private TangensOperation tangensOperation = new TangensOperation();
 
     public CalculatorGUI() {
         setTitle("Calculator App");
@@ -54,7 +55,7 @@ public class CalculatorGUI extends JFrame implements ActionListener {
             buttonPanel.add(digitButtons[i]);
         }
 
-        operationButtons = new JButton[9];
+        operationButtons = new JButton[10];
         operationButtons[0] = new JButton("+");
         operationButtons[1] = new JButton("-");
         operationButtons[2] = new JButton("*");
@@ -64,7 +65,8 @@ public class CalculatorGUI extends JFrame implements ActionListener {
         operationButtons[6] = new JButton("%");
         operationButtons[7] = new JButton("sin");
         operationButtons[8] = new JButton("cos");
-        for (int i = 0; i < 9; i++) {
+        operationButtons[9] = new JButton("tan");
+        for (int i = 0; i < 10; i++) {
             operationButtons[i].addActionListener(this);
             buttonPanel.add(operationButtons[i]);
         }
@@ -107,6 +109,11 @@ public class CalculatorGUI extends JFrame implements ActionListener {
             } else if (command.equals("cos")) {
                 num1 = Double.parseDouble(inputField.getText());
                 double result = cosinusOperation.cosinusOf(num1);
+                inputField.setText(String.valueOf(result));
+                clearOperation();
+            } else if (command.equals("tan")) {
+                num1 = Double.parseDouble(inputField.getText());
+                double result = tangensOperation.tangensOf(num1);
                 inputField.setText(String.valueOf(result));
                 clearOperation();
             } else {
