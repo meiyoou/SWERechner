@@ -4,7 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d6e1b768-df78-401b-b776-78ad47e4135e" name="Changes" comment="Modulo Funktion hinzugefügt&#10;Sinus funktion hinzugefügt" />
+    <list default="true" id="d6e1b768-df78-401b-b776-78ad47e4135e" name="Changes" comment="Modulo Funktion hinzugefügt&#10;Sinus funktion hinzugefügt&#10;&#10;(cherry picked from commit 2ec9dde527cdc3ca4442ba083dcc39e08b0a668e)">
+      <change afterPath="$PROJECT_DIR$/src/operation/CosinusOperation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/gui/CalculatorGUI.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/gui/CalculatorGUI.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,7 +50,7 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "Cherry-picking in master",
+    "git-widget-placeholder": "master",
     "settings.editor.selected.configurable": "preferences.keymap"
   }
 }]]></component>
@@ -67,7 +71,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713282591723</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Modulo Funktion hinzugefügt&#10;Sinus funktion hinzugefügt&#10;&#10;(cherry picked from commit 2ec9dde527cdc3ca4442ba083dcc39e08b0a668e)">
+      <option name="closed" value="true" />
+      <created>1713286469721</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1713286469721</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -110,6 +122,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Modulo Funktion hinzugefügt&#10;Sinus funktion hinzugefügt" />
-    <option name="LAST_COMMIT_MESSAGE" value="Modulo Funktion hinzugefügt&#10;Sinus funktion hinzugefügt" />
+    <MESSAGE value="Modulo Funktion hinzugefügt&#10;Sinus funktion hinzugefügt&#10;&#10;(cherry picked from commit 2ec9dde527cdc3ca4442ba083dcc39e08b0a668e)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Modulo Funktion hinzugefügt&#10;Sinus funktion hinzugefügt&#10;&#10;(cherry picked from commit 2ec9dde527cdc3ca4442ba083dcc39e08b0a668e)" />
   </component>
 </project>
