@@ -18,6 +18,7 @@ public class CalculatorGUI extends JFrame implements ActionListener {
     private JButton[] operationButtons;
     private JButton equalsButton;
     private JButton clearButton;
+    private JButton log10Button;
     private double num1, num2;
     private char operation;
     private boolean isOperationPerformed;
@@ -89,6 +90,10 @@ public class CalculatorGUI extends JFrame implements ActionListener {
         clearButton.addActionListener(this);
         buttonPanel.add(clearButton);
 
+        log10Button = new JButton("log10");
+        log10Button.addActionListener(this);
+        buttonPanel.add(log10Button);
+
         add(buttonPanel, BorderLayout.CENTER);
 
         JButton graphButton = new JButton("Graph");
@@ -110,6 +115,10 @@ public class CalculatorGUI extends JFrame implements ActionListener {
         JButton roundButton = new JButton("round");
         roundButton.addActionListener(this);
         buttonPanel.add(roundButton);
+
+        JButton log2Button = new JButton("log2");
+        log2Button.addActionListener(this);
+        buttonPanel.add(log2Button);
 
         setVisible(true);
     }
@@ -175,6 +184,24 @@ public class CalculatorGUI extends JFrame implements ActionListener {
                 num1 = Double.parseDouble(inputField.getText());
                 double result = RoundingOperation.roundNumber(num1);
                 inputField.setText(String.valueOf(result));
+                clearOperation();
+            } else if (command.equals("log10")) {
+                num1 = Double.parseDouble(inputField.getText());
+                try {
+                    double result = Log10Operation.log10Of(num1);
+                    inputField.setText(String.valueOf(result));
+                } catch (IllegalArgumentException ex) {
+                    inputField.setText(ex.getMessage());
+                }
+                clearOperation();
+            }else if (command.equals("log2")){
+                num1= Double.parseDouble(inputField.getText());
+                try {
+                    double result = Log2Operation.log2Of(num1);
+                    inputField.setText(String.valueOf(result));
+                } catch (IllegalArgumentException ex) {
+                    inputField.setText(ex.getMessage());
+                }
                 clearOperation();
             } else {
                 setOperation(command.charAt(0));
