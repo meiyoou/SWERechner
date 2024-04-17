@@ -29,6 +29,17 @@ public class CalculatorGUI extends JFrame implements ActionListener {
     private DivisionOperation divisionOperation = new DivisionOperation();
     private ExponentiationOperation exponentiationOperation = new ExponentiationOperation();
     private SquareRootOperation squareRootOperation = new SquareRootOperation();
+    private ModuloOperation moduloOperation = new ModuloOperation();
+    private SinusOperation sinusOperation = new SinusOperation();
+    private CosinusOperation cosinusOperation = new CosinusOperation();
+    private TangensOperation tangensOperation = new TangensOperation();
+    private LogarithmOperation logarithmOperation = new LogarithmOperation();
+    private FactorialOperation factorialOperation = new FactorialOperation();
+    private CubeRootOperation cubeRootOperation = new CubeRootOperation();
+    private NaturalLogarithmOperation naturalLogarithmOperation = new NaturalLogarithmOperation();
+    private AbsoluteValueOperation absoluteValueOperation = new AbsoluteValueOperation();
+    private RoundingOperation roundingOperation = new RoundingOperation();
+
 
     public CalculatorGUI() {
         setTitle("Calculator App");
@@ -42,7 +53,7 @@ public class CalculatorGUI extends JFrame implements ActionListener {
         add(inputField, BorderLayout.NORTH);
 
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(4, 4));
+        buttonPanel.setLayout(new GridLayout(6, 6));
 
         digitButtons = new JButton[10];
         for (int i = 0; i < 10; i++) {
@@ -51,14 +62,21 @@ public class CalculatorGUI extends JFrame implements ActionListener {
             buttonPanel.add(digitButtons[i]);
         }
 
-        operationButtons = new JButton[6];
+        operationButtons = new JButton[13];
         operationButtons[0] = new JButton("+");
         operationButtons[1] = new JButton("-");
         operationButtons[2] = new JButton("*");
         operationButtons[3] = new JButton("/");
         operationButtons[4] = new JButton("^");
         operationButtons[5] = new JButton("√");
-        for (int i = 0; i < 6; i++) {
+        operationButtons[6] = new JButton("%");
+        operationButtons[7] = new JButton("sin");
+        operationButtons[8] = new JButton("cos");
+        operationButtons[9] = new JButton("tan");
+        operationButtons[10] = new JButton("log");
+        operationButtons[11] = new JButton("!");
+        operationButtons[12] = new JButton("∛");
+        for (int i = 0; i < 13; i++) {
             operationButtons[i].addActionListener(this);
             buttonPanel.add(operationButtons[i]);
         }
@@ -77,6 +95,22 @@ public class CalculatorGUI extends JFrame implements ActionListener {
         graphButton.addActionListener(e -> openGraphWindow());
         buttonPanel.add(graphButton);
 
+        JButton lnButton = new JButton("ln");
+        lnButton.addActionListener(this);
+        buttonPanel.add(lnButton);
+
+        JButton absButton = new JButton("abs");
+        absButton.addActionListener(this);
+        buttonPanel.add(absButton);
+
+        JButton commaButton = new JButton(".");
+        commaButton.addActionListener(this);
+        buttonPanel.add(commaButton);
+
+        JButton roundButton = new JButton("round");
+        roundButton.addActionListener(this);
+        buttonPanel.add(roundButton);
+
         setVisible(true);
     }
 
@@ -89,17 +123,70 @@ public class CalculatorGUI extends JFrame implements ActionListener {
         } else if (command.equals("C")) {
             clearInput();
         } else if (command.equals("=")) {
-            performOperation();
+            if (isOperationPerformed) {
+                performOperation();
+            }
         } else {
-            setOperation(command);
+            if (command.equals("sin")) {
+                num1 = Double.parseDouble(inputField.getText());
+                double result = sinusOperation.sinusOf(num1);
+                inputField.setText(String.valueOf(result));
+                clearOperation();
+            } else if (command.equals("cos")) {
+                num1 = Double.parseDouble(inputField.getText());
+                double result = cosinusOperation.cosinusOf(num1);
+                inputField.setText(String.valueOf(result));
+                clearOperation();
+            } else if (command.equals("tan")) {
+                num1 = Double.parseDouble(inputField.getText());
+                double result = tangensOperation.tangensOf(num1);
+                inputField.setText(String.valueOf(result));
+                clearOperation();
+            } else if (command.equals("log")) {
+                num1 = Double.parseDouble(inputField.getText());
+                double result = logarithmOperation.logarithmOf(num1);
+                inputField.setText(String.valueOf(result));
+                clearOperation();
+            } else if (command.equals("!")) {
+                num1 = Double.parseDouble(inputField.getText());
+                double result = factorialOperation.factorialOf(num1);
+                inputField.setText(String.valueOf(result));
+                clearOperation();
+            } else if (command.equals("∛")) {
+                num1 = Double.parseDouble(inputField.getText());
+                double result = cubeRootOperation.cubeRootOf(num1);
+                inputField.setText(String.valueOf(result));
+                clearOperation();
+            } else if (command.equals("ln")) {
+                num1 = Double.parseDouble(inputField.getText());
+                double result = naturalLogarithmOperation.naturalLogarithmOf(num1);
+                inputField.setText(String.valueOf(result));
+                clearOperation();
+            } else if (command.equals("abs")) {
+                num1 = Double.parseDouble(inputField.getText());
+                double result = AbsoluteValueOperation.absoluteValueOf(num1);
+                inputField.setText(String.valueOf(result));
+                clearOperation();
+            } else if (command.equals(".")) {
+                if (!inputField.getText().contains(".")) {
+                    inputField.setText(inputField.getText() + ".");
+                }
+            }else if (command.equals("round")) {
+                num1 = Double.parseDouble(inputField.getText());
+                double result = RoundingOperation.roundNumber(num1);
+                inputField.setText(String.valueOf(result));
+                clearOperation();
+            } else {
+                setOperation(command.charAt(0));
+            }
         }
     }
 
-    private void setOperation(String operation) {
+    private void setOperation(char operation) {
         if (isOperationPerformed) {
             performOperation();
         }
-        this.operation = operation.charAt(0);
+        this.operation = operation;
         num1 = Double.parseDouble(inputField.getText());
         inputField.setText("");
         isOperationPerformed = true;
@@ -132,6 +219,12 @@ public class CalculatorGUI extends JFrame implements ActionListener {
                 break;
             case '√':
                 result = squareRootOperation.squareRootOf(num1);
+                break;
+            case '%':
+                result = moduloOperation.moduloNumbers(num1, num2);
+                break;
+            case 's':
+                result = sinusOperation.sinusOf(num1);
                 break;
         }
         if (result == (long) result) {
