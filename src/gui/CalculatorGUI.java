@@ -6,6 +6,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.function.DoubleUnaryOperator;
+import java.util.List;
+import java.util.ArrayList;
 
 import functions.ExpressionParser;
 import functions.Graph;
@@ -22,6 +24,7 @@ public class CalculatorGUI extends JFrame implements ActionListener {
     private double num1, num2;
     private char operation;
     private boolean isOperationPerformed;
+    private List<String> operations = new ArrayList<>();
 
     // Create instances of your operation classes
     private AdditionOperation additionOperation = new AdditionOperation();
@@ -40,17 +43,18 @@ public class CalculatorGUI extends JFrame implements ActionListener {
     private NaturalLogarithmOperation naturalLogarithmOperation = new NaturalLogarithmOperation();
     private AbsoluteValueOperation absoluteValueOperation = new AbsoluteValueOperation();
     private RoundingOperation roundingOperation = new RoundingOperation();
+    private AverageOperation averageOperation = new AverageOperation();
 
 
     public CalculatorGUI() {
         setTitle("Calculator App");
-        setSize(300, 400);
+        setSize(600, 800);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         inputField = new JTextField();
-        inputField.setFont(new Font("Arial", Font.PLAIN, 24));
         inputField.setHorizontalAlignment(JTextField.RIGHT);
         inputField.setEditable(false);
+        inputField.setPreferredSize(new Dimension(inputField.getPreferredSize().width, 100));
         add(inputField, BorderLayout.NORTH);
 
         JPanel buttonPanel = new JPanel();
@@ -82,6 +86,7 @@ public class CalculatorGUI extends JFrame implements ActionListener {
             buttonPanel.add(operationButtons[i]);
         }
 
+
         equalsButton = new JButton("=");
         equalsButton.addActionListener(this);
         buttonPanel.add(equalsButton);
@@ -89,6 +94,8 @@ public class CalculatorGUI extends JFrame implements ActionListener {
         clearButton = new JButton("C");
         clearButton.addActionListener(this);
         buttonPanel.add(clearButton);
+
+
 
         log10Button = new JButton("log10");
         log10Button.addActionListener(this);
@@ -120,20 +127,75 @@ public class CalculatorGUI extends JFrame implements ActionListener {
         log2Button.addActionListener(this);
         buttonPanel.add(log2Button);
 
+        JButton averageButton = new JButton("avg");
+        averageButton.addActionListener(this);
+        buttonPanel.add(averageButton);
+
+
+
+
+        ThemeManager.applyDefaultTheme(this);
+
+        for(JButton button : digitButtons){
+            ThemeManager.setButtonTheme(button, ThemeManager.DEFAULT_DIGIT_COLOR);
+            button.setFont(new Font("Arial", Font.BOLD, 24));
+        }
+
+        for (JButton button : operationButtons) {
+            ThemeManager.setButtonTheme(button, ThemeManager.DEFAULT_BUTTON_COLOR);
+        }
+
+        for (JButton button : operationButtons) {
+            ThemeManager.setButtonTheme(button, ThemeManager.DEFAULT_OPERATION_BUTTON_COLOR);
+        }
+
+        ThemeManager.setButtonTheme(equalsButton, ThemeManager.DEFAULT_EQUALS_BUTTON_COLOR);
+        ThemeManager.setButtonTheme(clearButton, ThemeManager.DEFAULT_CLEAR_BUTTON_COLOR);
+        ThemeManager.setButtonTheme(log10Button, ThemeManager.DEFAULT_SPECIAL_BUTTON_COLOR);
+        ThemeManager.setButtonTheme(lnButton, ThemeManager.DEFAULT_SPECIAL_BUTTON_COLOR);
+        ThemeManager.setButtonTheme(absButton, ThemeManager.DEFAULT_SPECIAL_BUTTON_COLOR);
+        ThemeManager.setButtonTheme(commaButton, ThemeManager.DEFAULT_SPECIAL_BUTTON_COLOR);
+        ThemeManager.setButtonTheme(roundButton, ThemeManager.DEFAULT_SPECIAL_BUTTON_COLOR);
+        ThemeManager.setButtonTheme(log2Button, ThemeManager.DEFAULT_SPECIAL_BUTTON_COLOR);
+        ThemeManager.setButtonTheme(averageButton, ThemeManager.DEFAULT_SPECIAL_BUTTON_COLOR);
+        ThemeManager.setButtonTheme(graphButton, ThemeManager.DEFAULT_SPECIAL_BUTTON_COLOR);
+
         setVisible(true);
+
+
     }
+
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
 
-        if (Character.isDigit(command.charAt(0))) {
+        if (Character.isDigit(command.charAt(0)) || command.equals(".")) {
             inputField.setText(inputField.getText() + command);
         } else if (command.equals("C")) {
             clearInput();
         } else if (command.equals("=")) {
             if (isOperationPerformed) {
                 performOperation();
+            } else if (inputField.getText().contains("+") || inputField.getText().contains("-") || inputField.getText().contains("*")) {
+                performOperation();
+            }
+        } else if (command.equals("avg")) {
+            if (inputField.getText().contains("+")) {
+                String[] numbersString = inputField.getText().split("\\+");
+                List<Double> numbers = new ArrayList<>();
+                for (String numberString : numbersString) {
+                    try {
+                        double number = Double.parseDouble(numberString);
+                        numbers.add(number);
+                    } catch (NumberFormatException ex) {
+                        inputField.setText("Invalid input: " + numberString);
+                        return;
+                    }
+                }
+                double result = AverageOperation.averageOf(numbers);
+                inputField.setText(String.valueOf(result));
             }
         } else {
             if (command.equals("sin")) {
@@ -194,14 +256,30 @@ public class CalculatorGUI extends JFrame implements ActionListener {
                     inputField.setText(ex.getMessage());
                 }
                 clearOperation();
-            }else if (command.equals("log2")){
-                num1= Double.parseDouble(inputField.getText());
+            }else if (command.equals("log2")) {
+                num1 = Double.parseDouble(inputField.getText());
                 try {
                     double result = Log2Operation.log2Of(num1);
                     inputField.setText(String.valueOf(result));
                 } catch (IllegalArgumentException ex) {
                     inputField.setText(ex.getMessage());
                 }
+                clearOperation();
+            }else if (command.equals("avg")) {
+                String input = inputField.getText();
+                String[] numbersString = input.split("+");
+                List<Double> numbers = new ArrayList<>();
+                for (String numberString : numbersString) {
+                    try {
+                        double number = Double.parseDouble(numberString);
+                        numbers.add(number);
+                    } catch (NumberFormatException ex) {
+                        inputField.setText("Invalid input: " + numberString);
+                        return;
+                    }
+                }
+                double result = AverageOperation.averageOf(numbers);
+                inputField.setText(String.valueOf(result));
                 clearOperation();
             } else {
                 setOperation(command.charAt(0));
@@ -211,48 +289,87 @@ public class CalculatorGUI extends JFrame implements ActionListener {
 
     private void setOperation(char operation) {
         if (isOperationPerformed) {
-            performOperation();
+            num1 = Double.parseDouble(inputField.getText().split("\\+")[0]);
+        } else {
+            num1 = Double.parseDouble(inputField.getText());
         }
         this.operation = operation;
-        num1 = Double.parseDouble(inputField.getText());
-        inputField.setText("");
+        inputField.setText(inputField.getText() + operation);
         isOperationPerformed = true;
     }
 
     private void performOperation() {
-        num2 = Double.parseDouble(inputField.getText());
+        String[] numbersString;
         double result = 0;
-
-        switch (operation) {
-            case '+':
-                result = additionOperation.addNumbers(num1, num2);
-                break;
-            case '-':
-                result = subtractionOperation.subtractNumbers(num1, num2);
-                break;
-            case '*':
-                result = multiplicationOperation.multiplyNumbers(num1, num2);
-                break;
-            case '/':
-                if (num2 != 0) {
-                    result = divisionOperation.divideNumbers(num1, num2);
-                } else {
-                    inputField.setText("Division by zero is not allowed.");
+        if (inputField.getText().contains("+")) {
+            numbersString = inputField.getText().split("\\+");
+            for (String numberString : numbersString) {
+                try {
+                    double number = Double.parseDouble(numberString);
+                    result += number;
+                } catch (NumberFormatException ex) {
+                    inputField.setText("Invalid input: " + numberString);
                     return;
                 }
-                break;
-            case '^':
-                result = exponentiationOperation.exponentiateNumbers(num1, num2);
-                break;
-            case '√':
-                result = squareRootOperation.squareRootOf(num1);
-                break;
-            case '%':
-                result = moduloOperation.moduloNumbers(num1, num2);
-                break;
-            case 's':
-                result = sinusOperation.sinusOf(num1);
-                break;
+            }
+        } else if (inputField.getText().contains("-")) {
+            numbersString = inputField.getText().split("-");
+            try {
+                result = Double.parseDouble(numbersString[0]);
+            } catch (NumberFormatException ex) {
+                inputField.setText("Invalid input: " + numbersString[0]);
+                return;
+            }
+            for (int i = 1; i < numbersString.length; i++) {
+                try {
+                    double number = Double.parseDouble(numbersString[i]);
+                    result -= number;
+                } catch (NumberFormatException ex) {
+                    inputField.setText("Invalid input: " + numbersString[i]);
+                    return;
+                }
+            }
+        } else if (inputField.getText().contains("*")) {
+            numbersString = inputField.getText().split("\\*");
+            try {
+                result = Double.parseDouble(numbersString[0]);
+            } catch (NumberFormatException ex) {
+                inputField.setText("Invalid input: " + numbersString[0]);
+                return;
+            }
+            for (int i = 1; i < numbersString.length; i++) {
+                try {
+                    double number = Double.parseDouble(numbersString[i]);
+                    result *= number;
+                } catch (NumberFormatException ex) {
+                    inputField.setText("Invalid input: " + numbersString[i]);
+                    return;
+                }
+            }
+        } else {
+            num2 = Double.parseDouble(inputField.getText());
+            switch (operation) {
+                case '/':
+                    if (num2 != 0) {
+                        result = divisionOperation.divideNumbers(num1, num2);
+                    } else {
+                        inputField.setText("Division by zero is not allowed.");
+                        return;
+                    }
+                    break;
+                case '^':
+                    result = exponentiationOperation.exponentiateNumbers(num1, num2);
+                    break;
+                case '√':
+                    result = squareRootOperation.squareRootOf(num1);
+                    break;
+                case '%':
+                    result = moduloOperation.moduloNumbers(num1, num2);
+                    break;
+                case 's':
+                    result = sinusOperation.sinusOf(num1);
+                    break;
+            }
         }
         if (result == (long) result) {
             // Round the result to the nearest integer
@@ -279,15 +396,24 @@ public class CalculatorGUI extends JFrame implements ActionListener {
         graphWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         graphWindow.setSize(600, 600);
 
-        DoubleUnaryOperator function = ExpressionParser.parseFunction(inputField.getText());
-        double minX = -10;
-        double maxX = 10;
-        double minY = -100;
-        double maxY = 100;
-        int pixelsPerUnit = 50;
+        String input = inputField.getText();
+        try {
+            DoubleUnaryOperator function = ExpressionParser.parseFunction(input);
+            double minX = -10;
+            double maxX = 10;
+            double minY = -100;
+            double maxY = 100;
+            int pixelsPerUnit = 50;
 
-        graphWindow.add(new Graph(function, minX, maxX, minY, maxY, pixelsPerUnit), BorderLayout.CENTER);
-        graphWindow.setVisible(true);
+            graphWindow.add(new Graph(function, minX, maxX, minY, maxY, pixelsPerUnit), BorderLayout.CENTER);
+            graphWindow.setVisible(true);
+        } catch (RuntimeException e) {
+            JOptionPane.showMessageDialog(this, "Invalid function: " + input, "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void showErrorMessage(String message) {
+        JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
     public static void main(String[] args) {
