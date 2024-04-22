@@ -9,8 +9,6 @@ import java.util.function.DoubleUnaryOperator;
 import java.util.List;
 import java.util.ArrayList;
 
-import functions.ExpressionParser;
-import functions.Graph;
 import operation.*;
 
 public class CalculatorGUI extends JFrame implements ActionListener {
@@ -103,9 +101,6 @@ public class CalculatorGUI extends JFrame implements ActionListener {
 
         add(buttonPanel, BorderLayout.CENTER);
 
-        JButton graphButton = new JButton("Graph");
-        graphButton.addActionListener(e -> openGraphWindow());
-        buttonPanel.add(graphButton);
 
         JButton lnButton = new JButton("ln");
         lnButton.addActionListener(this);
@@ -158,13 +153,11 @@ public class CalculatorGUI extends JFrame implements ActionListener {
         ThemeManager.setButtonTheme(roundButton, ThemeManager.DEFAULT_SPECIAL_BUTTON_COLOR);
         ThemeManager.setButtonTheme(log2Button, ThemeManager.DEFAULT_SPECIAL_BUTTON_COLOR);
         ThemeManager.setButtonTheme(averageButton, ThemeManager.DEFAULT_SPECIAL_BUTTON_COLOR);
-        ThemeManager.setButtonTheme(graphButton, ThemeManager.DEFAULT_SPECIAL_BUTTON_COLOR);
 
         setVisible(true);
 
 
     }
-
 
 
     @Override
@@ -391,32 +384,15 @@ public class CalculatorGUI extends JFrame implements ActionListener {
         isOperationPerformed = false;
     }
 
-    private void openGraphWindow() {
-        JFrame graphWindow = new JFrame("Graph");
-        graphWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        graphWindow.setSize(600, 600);
-
-        String input = inputField.getText();
-        try {
-            DoubleUnaryOperator function = ExpressionParser.parseFunction(input);
-            double minX = -10;
-            double maxX = 10;
-            double minY = -100;
-            double maxY = 100;
-            int pixelsPerUnit = 50;
-
-            graphWindow.add(new Graph(function, minX, maxX, minY, maxY, pixelsPerUnit), BorderLayout.CENTER);
-            graphWindow.setVisible(true);
-        } catch (RuntimeException e) {
-            JOptionPane.showMessageDialog(this, "Invalid function: " + input, "Error", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-
     private void showErrorMessage(String message) {
         JOptionPane.showMessageDialog(this, message, "Error", JOptionPane.ERROR_MESSAGE);
     }
 
+
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new CalculatorGUI());
     }
+
+
 }
