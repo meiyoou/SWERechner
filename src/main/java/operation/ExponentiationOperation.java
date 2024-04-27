@@ -1,9 +1,8 @@
 package operation;
 
-public class ExponentiationOperation{
-    public ExponentiationOperation(){};
-
-    public static double exponentiateNumbers(double base, double power){
-        return Math.pow(base,power);
+public class ExponentiationOperation implements IOperation {
+    @Override
+    public double execute(double... operands) {
+        return Math.pow(operands[0], operands[1]);
     }
 }

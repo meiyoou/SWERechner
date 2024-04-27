@@ -1,16 +1,14 @@
 package operation;
 
-import java.util.List;
+import java.util.Arrays;
 
-public class AverageOperation { // This class is used to calculate the average of a list of numbers; Zahlen mithilfe von ; abtrennen
-    public static double averageOf(List<Double> numbers) {
-        if (numbers == null || numbers.isEmpty()) {
-            throw new IllegalArgumentException("List of numbers cannot be null or empty");
+public class AverageOperation implements IOperation {
+    @Override
+    public double execute(double... operands) {
+        if (operands == null || operands.length == 0) {
+            throw new IllegalArgumentException("No operands provided for average calculation.");
         }
-        double sum = 0;
-        for (double number : numbers) {
-            sum += number;
-        }
-        return sum / numbers.size();
+        return Arrays.stream(operands).average().orElseThrow(() ->
+                new IllegalArgumentException("Error calculating average"));
     }
 }

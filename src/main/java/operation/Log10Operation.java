@@ -1,12 +1,12 @@
 package operation;
 
-public class Log10Operation {
-    public Log10Operation() {};
-
-    public static double log10Of(double number) {
-        if (number <= 0) {
+public class Log10Operation implements IOperation {
+    @Override
+    public double execute(double... operands) {
+        if (operands[0] <= 0) {
             throw new IllegalArgumentException("Log10 cannot be calculated for non-positive numbers.");
         }
-        return Math.log10(number);
+        return Math.log10(operands[0]);
     }
 }
+

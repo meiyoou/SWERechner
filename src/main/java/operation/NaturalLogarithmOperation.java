@@ -1,9 +1,8 @@
 package operation;
 
-public class NaturalLogarithmOperation {
-    public NaturalLogarithmOperation() {};
-
-    public static double naturalLogarithmOf(double number) {
-        return Math.log(number);
+public class NaturalLogarithmOperation implements IOperation {
+    @Override
+    public double execute(double... operands) {
+        return Math.log(operands[0]);
     }
 }

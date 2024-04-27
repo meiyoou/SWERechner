@@ -1,9 +1,8 @@
 package operation;
 
-public class SquareRootOperation{
-    public SquareRootOperation(){};
-
-    public static double squareRootOf(double radicand){
-        return Math.sqrt(radicand);
+public class SquareRootOperation implements IOperation {
+    @Override
+    public double execute(double... operands) {
+        return Math.sqrt(operands[0]);
     }
 }

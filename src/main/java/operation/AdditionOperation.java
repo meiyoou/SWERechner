@@ -1,9 +1,9 @@
 package operation;
 
-public class AdditionOperation{
-    public AdditionOperation(){};
-
-    public static double addNumbers(double numberOne, double numberTwo){
-        return numberOne + numberTwo;
+public class AdditionOperation implements IOperation {
+    @Override
+    public double execute(double... operands) {
+        return operands[0] + operands[1];
     }
 }
+

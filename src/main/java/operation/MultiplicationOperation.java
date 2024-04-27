@@ -1,9 +1,8 @@
 package operation;
 
-public class MultiplicationOperation {
-    public MultiplicationOperation(){};
-
-    public static double multiplyNumbers(double numberOne, double numberTwo){
-        return numberOne * numberTwo;
+public class MultiplicationOperation implements IOperation {
+    @Override
+    public double execute(double... operands) {
+        return operands[0] * operands[1];
     }
 }

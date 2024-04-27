@@ -1,7 +1,10 @@
 package operation;
 
-public class CosinusOperation {
-    public double cosinusOf(double num) {
-        return Math.cos(Math.toRadians(num));
+public class CosinusOperation implements IOperation {
+    @Override
+    public double execute(double... operands) {
+        return Math.cos(Math.toRadians(operands[0]));
     }
 }
+
+

@@ -1,11 +1,10 @@
 package operation;
 
-public class ModuloOperation {
-    public double moduloNumbers(double num1, double num2) {
-        if (num2 != 0) {
-            return num1 % num2;
-        } else {
-            throw new IllegalArgumentException("Division by zero is not allowed");
-        }
+public class ModuloOperation implements IOperation {
+    @Override
+    public double execute(double... operands) {
+        if (operands[1] == 0) throw new IllegalArgumentException("Modulo by zero is not allowed.");
+        return operands[0] % operands[1];
     }
 }
+

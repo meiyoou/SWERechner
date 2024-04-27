@@ -1,7 +1,8 @@
 package operation;
 
-public class LogarithmOperation {
-    public double logarithmOf(double num) {
-        return Math.log(num);
+public class LogarithmOperation implements IOperation {
+    @Override
+    public double execute(double... operands) {
+        return Math.log(operands[0]);
     }
 }

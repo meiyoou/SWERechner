@@ -1,12 +1,12 @@
 package operation;
 
-public class Log2Operation {
-    public Log2Operation() {};
-
-    public static double log2Of(double number) {
-        if (number <= 0) {
+public class Log2Operation implements IOperation {
+    @Override
+    public double execute(double... operands) {
+        if (operands[0] <= 0) {
             throw new IllegalArgumentException("Log2 cannot be calculated for non-positive numbers.");
         }
-        return Math.log(number) / Math.log(2);
+        return Math.log(operands[0]) / Math.log(2);
     }
 }
+

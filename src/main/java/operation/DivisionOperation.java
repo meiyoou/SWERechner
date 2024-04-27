@@ -1,9 +1,9 @@
 package operation;
 
-public class DivisionOperation{
-    public DivisionOperation(){};
-
-    public static double divideNumbers(double dividend, double divisor){
-        return dividend / divisor;
+public class DivisionOperation implements IOperation {
+    @Override
+    public double execute(double... operands) {
+        if (operands[1] == 0) throw new IllegalArgumentException("Division by zero is not allowed.");
+        return operands[0] / operands[1];
     }
 }
