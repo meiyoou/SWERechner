@@ -36,12 +36,28 @@ public class CalculatorGUI extends JFrame {
     public void performCalculation() {
         String input = displayManager.getInputField().getText();
         try {
+            // Entfernen von zusätzlichen Leerzeichen und Aufteilen der Eingabe
             String[] parts = input.split(" ");
+
+            // Variablen zur Speicherung der Operanden und des Operators
             double num1 = Double.parseDouble(parts[0]);
             String operator = parts[1];
-            double num2 = Double.parseDouble(parts[2]);
+            double num2;
+
+            // Überprüfen, ob der zweite Operand ein Prozentwert ist
+            if (parts[2].endsWith("%")) {
+                // Entfernen des Prozentzeichens und Umrechnen in eine Dezimalzahl
+                String percentString = parts[2].substring(0, parts[2].length() - 1);
+                num2 = Double.parseDouble(percentString) / 100.0;
+            } else {
+                num2 = Double.parseDouble(parts[2]);
+            }
+
+            // Holen der Operation von der Factory und Ausführen der Berechnung
             IOperation op = OperationFactory.getOperation(operator);
             double result = op.execute(num1, num2);
+
+            // Setzen des Ergebnisses im Display
             displayManager.setText(String.format("%.2f", result));
         } catch (Exception e) {
             displayManager.setText("Fehler: " + e.getMessage());
