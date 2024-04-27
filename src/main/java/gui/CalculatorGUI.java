@@ -2,6 +2,7 @@ package gui;
 
 import javax.swing.*;
 import java.awt.BorderLayout;
+
 import operation.OperationFactory;
 import operation.IOperation;
 
@@ -10,7 +11,6 @@ public class CalculatorGUI extends JFrame {
     private ButtonPanel buttonPanel;
     private CalculatorController controller;
     private CalculationHandler calculationHandler;
-
 
     public CalculatorGUI() {
         setTitle("Calculator App");
@@ -22,8 +22,7 @@ public class CalculatorGUI extends JFrame {
         controller = new CalculatorController(this);
         buttonPanel = new ButtonPanel(controller);
         calculationHandler = new CalculationHandler(displayManager);
-
-
+        
         // Layout setzen
         add(displayManager.getInputField(), BorderLayout.NORTH);
         add(buttonPanel, BorderLayout.CENTER);
@@ -41,11 +40,10 @@ public class CalculatorGUI extends JFrame {
         String input = displayManager.getInputField().getText();
         try {
             if (input.contains("!")) {
-                calculationHandler.handleFactorial(input); // Delegieren an CalculationHandler
+                calculationHandler.handleFactorial(input);
             } else if (input.contains("√")) {
                 calculationHandler.handleSingleOperandOperation(input, "√");
             } else {
-                // Normal calculation process
                 String[] parts = input.split(" ");
                 double num1 = Double.parseDouble(parts[0]);
                 String operator = parts[1];
@@ -53,12 +51,13 @@ public class CalculatorGUI extends JFrame {
 
                 IOperation op = OperationFactory.getOperation(operator);
                 double result = op.execute(num1, num2);
-                displayManager.setText(String.format("%.2f", result));
+                displayManager.setText(String.format("%.5f", result));  // Jetzt 5 Nachkommastellen
             }
         } catch (Exception e) {
             displayManager.setText("Fehler: " + e.getMessage());
         }
     }
+
 
     private double parseSecondOperand(String operand) {
         if (operand.endsWith("%")) {
@@ -67,7 +66,6 @@ public class CalculatorGUI extends JFrame {
             return Double.parseDouble(operand);
         }
     }
-
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(CalculatorGUI::new);

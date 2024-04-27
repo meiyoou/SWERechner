@@ -20,7 +20,7 @@ public class CalculationHandler {
                 // Fallback for unrecognized operations
                 throw new IllegalArgumentException("Unbekannte Operation: " + operation);
             }
-            displayManager.setText(String.format("%.2f", value));
+            displayManager.setText(String.format("%.5f", value));
         } catch (NumberFormatException e) {
             displayManager.setText("Fehler: Ungültige Zahleneingabe für " + operation);
         }
@@ -31,19 +31,19 @@ public class CalculationHandler {
             double value = Double.parseDouble(displayManager.getInputField().getText().trim());
             IOperation operation = OperationFactory.getOperation(command);
             double result = operation.execute(value);
-            displayManager.setText(String.format("%.2f", result));
+            displayManager.setText(String.format("%.5f", result));
         } catch (Exception e) {
             displayManager.setText("Fehler: " + e.getMessage());
         }
     }
     public void handleFactorial(String input) {
         try {
-            if (input.matches("\\d+\\!$")) { // Stellt sicher, dass nur Zahlen gefolgt von einem Ausrufezeichen vorhanden sind
+            if (input.matches("\\d+\\!$")) {
                 String numberStr = input.substring(0, input.length() - 1);
                 double number = Double.parseDouble(numberStr);
                 IOperation factorialOperation = OperationFactory.getOperation("!");
                 double result = factorialOperation.execute(number);
-                displayManager.setText(String.format("%.0f", result)); // Faktorial-Ergebnisse sind Ganzzahlen
+                displayManager.setText(String.format("%.5f", result)); // Jetzt 5 Nachkommastellen
             } else {
                 throw new IllegalArgumentException("Faktorial-Operation erfordert eine Zahl gefolgt von einem Ausrufezeichen.");
             }
@@ -55,5 +55,6 @@ public class CalculationHandler {
             displayManager.setText("Fehler: " + e.getMessage());
         }
     }
+
 
 }
