@@ -35,10 +35,16 @@ public class CalculatorController implements ActionListener {
                 case "^":
                     displayManager.appendText(" " + command + " ");
                     break;
-                case "%":
                 case "!":
+                    String input = displayManager.getInputField().getText().trim();
+                    if (input.matches("\\d+\\!$")) {  // Sicherstellen, dass die Eingabe nur Ziffern gefolgt von einem Ausrufezeichen enthält
+                        calculationHandler.handleFactorial(input);
+                    } else {
+                        displayManager.appendText(command);  // Nur das Ausrufezeichen anhängen, wenn keine gültige Faktorial-Eingabe
+                    }
+                    break;
                 case "√":
-                    if (command.equals("√") && !displayManager.getInputField().getText().contains(" ")) {
+                    if (!displayManager.getInputField().getText().contains(" ")) {
                         calculationHandler.handleSingleOperandOperation(displayManager.getInputField().getText(), command);
                     } else {
                         displayManager.appendText(command);
@@ -50,4 +56,6 @@ public class CalculatorController implements ActionListener {
             }
         }
     }
+
+
 }

@@ -40,22 +40,16 @@ public class CalculatorGUI extends JFrame {
     public void performCalculation() {
         String input = displayManager.getInputField().getText();
         try {
-            // Check for square root or factorial at the start or end
-            if (input.contains("√")) {
+            if (input.contains("!")) {
+                calculationHandler.handleFactorial(input); // Delegieren an CalculationHandler
+            } else if (input.contains("√")) {
                 calculationHandler.handleSingleOperandOperation(input, "√");
             } else {
                 // Normal calculation process
                 String[] parts = input.split(" ");
                 double num1 = Double.parseDouble(parts[0]);
                 String operator = parts[1];
-                double num2;
-
-                if (parts[2].endsWith("%")) {
-                    String percentString = parts[2].substring(0, parts[2].length() - 1);
-                    num2 = Double.parseDouble(percentString) / 100.0;
-                } else {
-                    num2 = Double.parseDouble(parts[2]);
-                }
+                double num2 = parseSecondOperand(parts[2]);
 
                 IOperation op = OperationFactory.getOperation(operator);
                 double result = op.execute(num1, num2);
@@ -65,6 +59,15 @@ public class CalculatorGUI extends JFrame {
             displayManager.setText("Fehler: " + e.getMessage());
         }
     }
+
+    private double parseSecondOperand(String operand) {
+        if (operand.endsWith("%")) {
+            return Double.parseDouble(operand.substring(0, operand.length() - 1)) / 100.0;
+        } else {
+            return Double.parseDouble(operand);
+        }
+    }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(CalculatorGUI::new);
