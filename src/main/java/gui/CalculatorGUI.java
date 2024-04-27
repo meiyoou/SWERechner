@@ -7,10 +7,10 @@ import operation.OperationFactory;
 import operation.IOperation;
 
 public class CalculatorGUI extends JFrame {
-    private DisplayManager displayManager;
+    DisplayManager displayManager;
     private ButtonPanel buttonPanel;
     private CalculatorController controller;
-    private CalculationHandler calculationHandler;
+    CalculationHandler calculationHandler;
 
     public CalculatorGUI() {
         setTitle("Calculator App");
@@ -59,7 +59,7 @@ public class CalculatorGUI extends JFrame {
     }
 
 
-    private double parseSecondOperand(String operand) {
+    double parseSecondOperand(String operand) {
         if (operand.endsWith("%")) {
             return Double.parseDouble(operand.substring(0, operand.length() - 1)) / 100.0;
         } else {
