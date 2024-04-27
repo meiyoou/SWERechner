@@ -21,4 +21,14 @@ public class DisplayManager {
     public void setText(String text) {
         inputField.setText(text);
     }
+
+    // Hinzufügen von Text zum aktuellen Inhalt des Eingabefelds
+    public void appendText(String text) {
+        inputField.setText(inputField.getText() + text);
+    }
+
+    // Löscht den Text im Eingabefeld
+    public void clear() {
+        inputField.setText("");
+    }
 }

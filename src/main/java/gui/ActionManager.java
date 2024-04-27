@@ -4,14 +4,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class ActionManager implements ActionListener {
-    private CalculatorGUI calculator;
+    private CalculatorController controller;
 
-    public ActionManager(CalculatorGUI calculator) {
-        this.calculator = calculator;
+    public ActionManager(CalculatorController controller) {
+        this.controller = controller;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        calculator.processAction(e);
+        controller.actionPerformed(e);
     }
 }
