@@ -9,6 +9,8 @@ public class CalculatorGUI extends JFrame {
     private DisplayManager displayManager;
     private ButtonPanel buttonPanel;
     private CalculatorController controller;
+    private CalculationHandler calculationHandler;
+
 
     public CalculatorGUI() {
         setTitle("Calculator App");
@@ -19,6 +21,8 @@ public class CalculatorGUI extends JFrame {
         displayManager = new DisplayManager();
         controller = new CalculatorController(this);
         buttonPanel = new ButtonPanel(controller);
+        calculationHandler = new CalculationHandler(displayManager);
+
 
         // Layout setzen
         add(displayManager.getInputField(), BorderLayout.NORTH);
@@ -36,41 +40,27 @@ public class CalculatorGUI extends JFrame {
     public void performCalculation() {
         String input = displayManager.getInputField().getText();
         try {
-            // Entfernen von zusätzlichen Leerzeichen und Aufteilen der Eingabe
-            String[] parts = input.split(" ");
-
-            // Variablen zur Speicherung der Operanden und des Operators
-            double num1 = Double.parseDouble(parts[0]);
-            String operator = parts[1];
-            double num2;
-
-            // Überprüfen, ob der zweite Operand ein Prozentwert ist
-            if (parts[2].endsWith("%")) {
-                // Entfernen des Prozentzeichens und Umrechnen in eine Dezimalzahl
-                String percentString = parts[2].substring(0, parts[2].length() - 1);
-                num2 = Double.parseDouble(percentString) / 100.0;
+            // Check for square root or factorial at the start or end
+            if (input.contains("√")) {
+                calculationHandler.handleSingleOperandOperation(input, "√");
             } else {
-                num2 = Double.parseDouble(parts[2]);
+                // Normal calculation process
+                String[] parts = input.split(" ");
+                double num1 = Double.parseDouble(parts[0]);
+                String operator = parts[1];
+                double num2;
+
+                if (parts[2].endsWith("%")) {
+                    String percentString = parts[2].substring(0, parts[2].length() - 1);
+                    num2 = Double.parseDouble(percentString) / 100.0;
+                } else {
+                    num2 = Double.parseDouble(parts[2]);
+                }
+
+                IOperation op = OperationFactory.getOperation(operator);
+                double result = op.execute(num1, num2);
+                displayManager.setText(String.format("%.2f", result));
             }
-
-            // Holen der Operation von der Factory und Ausführen der Berechnung
-            IOperation op = OperationFactory.getOperation(operator);
-            double result = op.execute(num1, num2);
-
-            // Setzen des Ergebnisses im Display
-            displayManager.setText(String.format("%.2f", result));
-        } catch (Exception e) {
-            displayManager.setText("Fehler: " + e.getMessage());
-        }
-    }
-
-    // Methode zur Verarbeitung spezieller Funktionen
-    public void handleSpecialFunction(String command) {
-        try {
-            double value = Double.parseDouble(displayManager.getInputField().getText().trim());
-            IOperation operation = OperationFactory.getOperation(command);
-            double result = operation.execute(value);
-            displayManager.setText(String.format("%.2f", result));
         } catch (Exception e) {
             displayManager.setText("Fehler: " + e.getMessage());
         }
