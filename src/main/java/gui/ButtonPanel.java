@@ -9,11 +9,12 @@ public class ButtonPanel extends JPanel {
     private JButton[] operationButtons;
     private JButton equalsButton;
     private JButton clearButton;
+    private JButton decimalButton; // Button für den Dezimalpunkt
     private ActionListener actionListener;
 
     public ButtonPanel(ActionListener listener) {
         this.actionListener = listener;
-        setLayout(new GridLayout(6, 6, 10, 10));  // 6 Zeilen, 6 Spalten, 10 Pixel horizontaler und vertikaler Abstand
+        setLayout(new GridLayout(7, 6, 10, 10));  // Anpassung der Grid-Dimensionen, um Platz für den zusätzlichen Button zu schaffen
         setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));  // Fügt einen Rand von 5 Pixeln um das Panel hinzu
         initializeButtons();
     }
@@ -26,6 +27,12 @@ public class ButtonPanel extends JPanel {
             digitButtons[i].addActionListener(actionListener);
             add(digitButtons[i]);
         }
+
+        // Dezimalpunkt-Button
+        decimalButton = new JButton(".");
+        ThemeManager.setButtonTheme(decimalButton, "digit"); // Styling wie bei den Ziffern-Buttons
+        decimalButton.addActionListener(actionListener);
+        add(decimalButton);
 
         String[] ops = {"+", "-", "*", "/", "^", "√", "∛", "%", "sin", "cos", "tan", "log", "ln", "log10", "!", "mod", "round", "avg", "|x|"};
         operationButtons = new JButton[ops.length];
