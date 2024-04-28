@@ -27,7 +27,7 @@ public class ButtonPanel extends JPanel {
             add(digitButtons[i]);
         }
 
-        String[] ops = {"+", "-", "*", "/", "^", "√", "%", "sin", "cos", "tan", "log", "!", "∛"};
+        String[] ops = {"+", "-", "*", "/", "^", "√", "∛", "%", "sin", "cos", "tan", "log", "ln", "log10", "!", "mod", "round", "avg", "|x|"};
         operationButtons = new JButton[ops.length];
         for (int i = 0; i < ops.length; i++) {
             operationButtons[i] = new JButton(ops[i]);

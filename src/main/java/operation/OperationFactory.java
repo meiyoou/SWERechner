@@ -16,7 +16,11 @@ public class OperationFactory {
             case "log10": return new Log10Operation();
             case "!": return new FactorialOperation();
             case "∛": return new CubeRootOperation();
-            case "√": return new SquareRootOperation(); // Stellen Sie sicher, dass dies hinzugefügt ist
+            case "√": return new SquareRootOperation();
+            case "mod": return new ModuloOperation();
+            case "round": return new RoundingOperation();
+            case "avg": return new AverageOperation();
+            case "|x|": return new AbsoluteValueOperation();
             default: throw new IllegalArgumentException("Unknown operation type: " + operator);
         }
     }
