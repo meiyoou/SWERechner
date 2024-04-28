@@ -18,8 +18,26 @@ public class DisplayManager {
         return inputField;
     }
 
+    // Setzt den Text im Eingabefeld, entfernt unnötige Dezimalstellen
     public void setText(String text) {
-        inputField.setText(text);
+        if (text == null) {
+            inputField.setText("");
+        } else {
+            try {
+                // Versucht das Textergebnis als Double zu interpretieren
+                double value = Double.parseDouble(text);
+                if (value == (long) value) {
+                    // Keine Dezimalstellen nötig, formatiere als Long
+                    inputField.setText(String.format("%d", (long) value));
+                } else {
+                    // Dezimalstellen nötig, formatiere als Double
+                    inputField.setText(String.format("%s", value));
+                }
+            } catch (NumberFormatException e) {
+                // Falls keine valide Zahl, setze den ursprünglichen Text
+                inputField.setText(text);
+            }
+        }
     }
 
     // Hinzufügen von Text zum aktuellen Inhalt des Eingabefelds
