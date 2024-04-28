@@ -8,8 +8,6 @@ import operation.IOperation;
 
 public class CalculatorGUI extends JFrame {
     DisplayManager displayManager;
-    private ButtonPanel buttonPanel;
-    private CalculatorController controller;
     CalculationHandler calculationHandler;
 
     public CalculatorGUI() {
@@ -19,8 +17,8 @@ public class CalculatorGUI extends JFrame {
 
         // Initialisierung der Komponenten
         displayManager = new DisplayManager();
-        controller = new CalculatorController(this);
-        buttonPanel = new ButtonPanel(controller);
+        CalculatorController controller = new CalculatorController(this);
+        ButtonPanel buttonPanel = new ButtonPanel(controller);
         calculationHandler = new CalculationHandler(displayManager);
         
         // Layout setzen
