@@ -1,5 +1,6 @@
-package gui;
+package controller;
 
+import gui.DisplayManager;
 import operation.OperationFactory;
 import operation.IOperation;
 

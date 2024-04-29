@@ -3,6 +3,8 @@ package gui;
 import javax.swing.*;
 import java.awt.BorderLayout;
 
+import controller.CalculationHandler;
+import controller.CalculatorController;
 import operation.OperationFactory;
 import operation.IOperation;
 
