@@ -1,0 +1,15 @@
+-------------------------------------------------------------------------------
+Test set: operation.FactorialOperationTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.006 s <<< FAILURE! -- in operation.FactorialOperationTest
+operation.FactorialOperationTest.testExecute_withNegativeNumber -- Time elapsed: 0.001 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Factorial of a negative number should throw IllegalArgumentException. ==> Expected java.lang.IllegalArgumentException to be thrown, but nothing was thrown.
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:152)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:73)
+	at org.junit.jupiter.api.AssertThrows.assertThrows(AssertThrows.java:39)
+	at org.junit.jupiter.api.Assertions.assertThrows(Assertions.java:3143)
+	at operation.FactorialOperationTest.testExecute_withNegativeNumber(FactorialOperationTest.java:27)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+

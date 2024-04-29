@@ -1,0 +1,61 @@
+-------------------------------------------------------------------------------
+Test set: gui.ButtonPanelTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 2, Errors: 1, Skipped: 0, Time elapsed: 0.052 s <<< FAILURE! -- in gui.ButtonPanelTest
+gui.ButtonPanelTest.testEqualsButtonProperties -- Time elapsed: 0.027 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Background should match the theme ==> expected: <java.awt.Color[r=200,g=200,b=255]> but was: <java.awt.Color[r=192,g=192,b=192]>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1156)
+	at gui.ButtonPanelTest.verifyTheme(ButtonPanelTest.java:95)
+	at gui.ButtonPanelTest.testEqualsButtonProperties(ButtonPanelTest.java:65)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+
+gui.ButtonPanelTest.testOperationButtonsCountAndProperties -- Time elapsed: 0.009 s <<< ERROR!
+java.util.regex.PatternSyntaxException: 
+Dangling meta character '+' near index 0
++
+^
+	at java.base/java.util.regex.Pattern.error(Pattern.java:2204)
+	at java.base/java.util.regex.Pattern.sequence(Pattern.java:2379)
+	at java.base/java.util.regex.Pattern.expr(Pattern.java:2245)
+	at java.base/java.util.regex.Pattern.compile(Pattern.java:1945)
+	at java.base/java.util.regex.Pattern.<init>(Pattern.java:1576)
+	at java.base/java.util.regex.Pattern.compile(Pattern.java:1101)
+	at java.base/java.util.regex.Pattern.matches(Pattern.java:1220)
+	at java.base/java.lang.String.matches(String.java:3011)
+	at gui.ButtonPanelTest.lambda$countComponentsByTypeAndText$0(ButtonPanelTest.java:89)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:193)
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:212)
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:194)
+	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:1024)
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:556)
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:546)
+	at java.base/java.util.stream.ReduceOps$ReduceOp.evaluateSequential(ReduceOps.java:921)
+	at java.base/java.util.stream.ReduceOps$5.evaluateSequential(ReduceOps.java:258)
+	at java.base/java.util.stream.ReduceOps$5.evaluateSequential(ReduceOps.java:248)
+	at java.base/java.util.stream.AbstractPipeline.evaluate(AbstractPipeline.java:265)
+	at java.base/java.util.stream.ReferencePipeline.count(ReferencePipeline.java:729)
+	at gui.ButtonPanelTest.countComponentsByTypeAndText(ButtonPanelTest.java:90)
+	at gui.ButtonPanelTest.testOperationButtonsCountAndProperties(ButtonPanelTest.java:46)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+
+gui.ButtonPanelTest.testClearButtonProperties -- Time elapsed: 0.006 s <<< FAILURE!
+org.opentest4j.AssertionFailedError: Background should match the theme ==> expected: <java.awt.Color[r=200,g=200,b=255]> but was: <java.awt.Color[r=192,g=192,b=192]>
+	at org.junit.jupiter.api.AssertionFailureBuilder.build(AssertionFailureBuilder.java:151)
+	at org.junit.jupiter.api.AssertionFailureBuilder.buildAndThrow(AssertionFailureBuilder.java:132)
+	at org.junit.jupiter.api.AssertEquals.failNotEqual(AssertEquals.java:197)
+	at org.junit.jupiter.api.AssertEquals.assertEquals(AssertEquals.java:182)
+	at org.junit.jupiter.api.Assertions.assertEquals(Assertions.java:1156)
+	at gui.ButtonPanelTest.verifyTheme(ButtonPanelTest.java:95)
+	at gui.ButtonPanelTest.testClearButtonProperties(ButtonPanelTest.java:73)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+

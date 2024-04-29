@@ -1,0 +1,40 @@
+-------------------------------------------------------------------------------
+Test set: gui.CalculationHandlerTest
+-------------------------------------------------------------------------------
+Tests run: 5, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.647 s <<< FAILURE! -- in gui.CalculationHandlerTest
+gui.CalculationHandlerTest.testHandleFactorial_validInput -- Time elapsed: 0.094 s <<< ERROR!
+org.mockito.exceptions.misusing.MissingMethodInvocationException: 
+
+when() requires an argument which has to be 'a method call on a mock'.
+For example:
+    when(mock.getArticles()).thenReturn(articles);
+
+Also, this error might show up because:
+1. you stub either of: final/private/native/equals()/hashCode() methods.
+   Those methods *cannot* be stubbed/verified.
+   Mocking methods declared on non-public parent classes is not supported.
+2. inside when() you don't call method on mock but on some other object.
+
+	at gui.CalculationHandlerTest.testHandleFactorial_validInput(CalculationHandlerTest.java:57)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+
+gui.CalculationHandlerTest.testHandleSpecialFunction -- Time elapsed: 0.526 s <<< ERROR!
+org.mockito.exceptions.misusing.MissingMethodInvocationException: 
+
+when() requires an argument which has to be 'a method call on a mock'.
+For example:
+    when(mock.getArticles()).thenReturn(articles);
+
+Also, this error might show up because:
+1. you stub either of: final/private/native/equals()/hashCode() methods.
+   Those methods *cannot* be stubbed/verified.
+   Mocking methods declared on non-public parent classes is not supported.
+2. inside when() you don't call method on mock but on some other object.
+
+	at gui.CalculationHandlerTest.testHandleSpecialFunction(CalculationHandlerTest.java:47)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+	at java.base/java.util.ArrayList.forEach(ArrayList.java:1597)
+
