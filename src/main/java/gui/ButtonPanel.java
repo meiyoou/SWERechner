@@ -22,35 +22,26 @@ public class ButtonPanel extends JPanel {
     private void initializeButtons() {
         digitButtons = new JButton[10];
         for (int i = 0; i < 10; i++) {
-            digitButtons[i] = new JButton(String.valueOf(i));
-            ThemeManager.setButtonTheme(digitButtons[i], "digit");
-            digitButtons[i].addActionListener(actionListener);
-            add(digitButtons[i]);
+            digitButtons[i] = createButton(String.valueOf(i), "digit");
         }
 
-        // Dezimalpunkt-Button
-        decimalButton = new JButton(".");
-        ThemeManager.setButtonTheme(decimalButton, "digit"); // Styling wie bei den Ziffern-Buttons
-        decimalButton.addActionListener(actionListener);
-        add(decimalButton);
+        decimalButton = createButton(".", "digit");
 
         String[] ops = {"+", "-", "*", "/", "^", "√", "∛", "%", "sin", "cos", "tan", "log", "ln", "log10", "!", "mod", "round", "avg", "|x|"};
         operationButtons = new JButton[ops.length];
         for (int i = 0; i < ops.length; i++) {
-            operationButtons[i] = new JButton(ops[i]);
-            ThemeManager.setButtonTheme(operationButtons[i], "operation");
-            operationButtons[i].addActionListener(actionListener);
-            add(operationButtons[i]);
+            operationButtons[i] = createButton(ops[i], "operation");
         }
 
-        equalsButton = new JButton("=");
-        ThemeManager.setButtonTheme(equalsButton, "equals");
-        equalsButton.addActionListener(actionListener);
-        add(equalsButton);
+        equalsButton = createButton("=", "equals");
+        clearButton = createButton("C", "clear");
+    }
 
-        clearButton = new JButton("C");
-        ThemeManager.setButtonTheme(clearButton, "clear");
-        clearButton.addActionListener(actionListener);
-        add(clearButton);
+    private JButton createButton(String text, String theme) {
+        JButton button = new JButton(text);
+        ThemeManager.setButtonTheme(button, theme);
+        button.addActionListener(actionListener);
+        add(button);
+        return button;
     }
 }

@@ -22,43 +22,57 @@ public class CalculatorController implements ActionListener {
         String command = e.getActionCommand();
 
         if (Character.isDigit(command.charAt(0)) || command.equals(".")) {
-            displayManager.appendText(command);
+            handleNumberInput(command);
         } else {
-            switch (command) {
-                case "C":
-                    displayManager.clear();
-                    break;
-                case "=":
-                    calculator.performCalculation();
-                    break;
-                case "+":
-                case "-":
-                case "*":
-                case "/":
-                case "^":
-                    displayManager.appendText(" " + command + " ");
-                    break;
-                case "!":
-                    String input = displayManager.getInputField().getText().trim();
-                    if (input.matches("\\d+\\!$")) {  // Sicherstellen, dass die Eingabe nur Ziffern gefolgt von einem Ausrufezeichen enthält
-                        calculationHandler.handleFactorial(input);
-                    } else {
-                        displayManager.appendText(command);  // Nur das Ausrufezeichen anhängen, wenn keine gültige Faktorial-Eingabe
-                    }
-                    break;
-                case "√":
-                    if (!displayManager.getInputField().getText().contains(" ")) {
-                        calculationHandler.handleSingleOperandOperation(displayManager.getInputField().getText(), command);
-                    } else {
-                        displayManager.appendText(command);
-                    }
-                    break;
-                default:
-                    calculationHandler.handleSpecialFunction(command);
-                    break;
-            }
+            handleOperationInput(command);
         }
     }
 
+    private void handleNumberInput(String command) {
+        displayManager.appendText(command);
+    }
+
+    private void handleOperationInput(String command) {
+        switch (command) {
+            case "C":
+                displayManager.clear();
+                break;
+            case "=":
+                calculator.performCalculation();
+                break;
+            default:
+                handleMathOperation(command);
+                break;
+        }
+    }
+
+    private void handleMathOperation(String command) {
+        if (command.matches("[+\\-*/^]")) {
+            displayManager.appendText(" " + command + " ");
+        } else if (command.equals("!")) {
+            handleFactorial();
+        } else if (command.equals("√")) {
+            handleSqrt();
+        } else {
+            calculationHandler.handleSpecialFunction(command);
+        }
+    }
+    private void handleFactorial() {
+        String input = displayManager.getInputField().getText().trim();
+        if (input.matches("\\d+\\!$")) {
+            calculationHandler.handleFactorial(input);
+        } else {
+            displayManager.appendText("!");
+        }
+    }
+
+    private void handleSqrt() {
+        String input = displayManager.getInputField().getText().trim();
+        if (!input.contains(" ")) {
+            calculationHandler.handleSingleOperandOperation(input, "√");
+        } else {
+            displayManager.appendText("√");
+        }
+    }
 
 }
